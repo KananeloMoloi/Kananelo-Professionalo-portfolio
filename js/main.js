@@ -11,18 +11,26 @@ gsap.ticker.add(function(t){lenis.raf(t*1000)});
 gsap.ticker.lagSmoothing(0);
 document.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();lenis.scrollTo(a.getAttribute('href'))})});
 
+gsap.from('.portrait',{opacity:0,y:60,scale:.94,duration:1.4,ease:'expo.out',delay:.3});
+if(!reduce)gsap.to('.portrait img',{yPercent:8,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
 // Progress bar
 gsap.to('#bar',{scaleX:1,ease:'none',scrollTrigger:{scrub:0.2,start:0,end:'max'}});
 
-// SplitText-style hero reveal (React Bits pattern)
+// Typewriter name reveal
+var chars=[];
 document.querySelectorAll('.split').forEach(function(el){
   var txt=el.textContent;el.textContent='';
   var w=document.createElement('span');w.className='w';
-  txt.split('').forEach(function(ch){var s=document.createElement('span');s.className='c';s.textContent=ch;w.appendChild(s)});
+  txt.split('').forEach(function(ch){var s=document.createElement('span');s.className='c';s.textContent=ch;w.appendChild(s);chars.push(s)});
   el.appendChild(w);
 });
-if(reduce){document.querySelectorAll('h1 .c').forEach(function(c){c.style.transform='none'})}
-else {gsap.set('h1 .c',{yPercent:110});gsap.to('h1 .c',{yPercent:0,duration:1.1,ease:'expo.out',stagger:.045,delay:.2});}
+var caret=document.createElement('span');caret.className='caret';caret.setAttribute('aria-hidden','true');
+if(!reduce&&chars.length){
+  chars.forEach(function(c){c.style.visibility='hidden'});
+  chars[0].parentNode.insertBefore(caret,chars[0]);
+  var tl=gsap.timeline({delay:.5});
+  chars.forEach(function(c,i){tl.call(function(){c.style.visibility='visible';c.after(caret)},null,i*0.11+(i>=8?0.4:0))});
+}
 
 // Marquee that speeds up with scroll velocity
 var m=document.getElementById('m1');m.innerHTML+=m.innerHTML;

@@ -18,8 +18,11 @@ nav a:hover{color:var(--a)}
 section{padding:14vh 4vw;position:relative}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:9vh}
 h1{font-size:clamp(3rem,12.5vw,13rem);line-height:.92;letter-spacing:-.04em;font-weight:500}
-h1 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
-h1 .c{display:inline-block;transform:translateY(110%)}
+h1 .w{display:inline-block}
+h1 .c{display:inline-block;white-space:pre}
+.caret{display:inline-block;width:.055em;height:.78em;background:var(--a);margin-left:.05em;vertical-align:-.02em;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
 .sub{margin-top:4vh;display:flex;gap:4vw;flex-wrap:wrap;justify-content:space-between;align-items:flex-end}
 .sub p{max-width:34ch;color:var(--mute);font-size:clamp(1rem,1.4vw,1.25rem);line-height:1.5}
 .sub .ital{font-size:clamp(1.6rem,3vw,2.8rem);color:var(--fg);max-width:16ch;line-height:1.05}
@@ -82,4 +85,8 @@ h1 .c{display:inline-block;transform:translateY(110%)}
 footer{padding:4vh 4vw;color:var(--mute);font-size:13px;display:flex;justify-content:space-between;border-top:1px solid var(--line)}
 .bar{position:fixed;left:0;top:0;height:3px;width:100%;background:linear-gradient(90deg,var(--a),var(--b));transform-origin:0 50%;transform:scaleX(0);z-index:20}
 @media(max-width:760px){.about,.row{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr);gap:30px 4vw}nav div{gap:14px}nav div a:nth-child(n+3){display:none}.hz{height:auto;padding:10vh 0;overflow:visible}.hz .track{flex-direction:column;padding:0 4vw}.card,.hz .intro{flex:auto}}
-@media(prefers-reduced-motion:reduce){h1 .c{transform:none!important}}
+.portrait{position:absolute;right:4vw;top:15vh;width:min(27vw,400px);aspect-ratio:2/3;border-radius:26px;overflow:hidden;z-index:1;box-shadow:0 0 0 1px var(--line),0 30px 90px -20px rgba(124,245,255,.28),0 0 70px -10px rgba(179,136,255,.35)}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block;transform:scale(1.08)}
+.portrait::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(7,8,12,.55))}
+h1{position:relative;z-index:2}
+@media(max-width:760px){.portrait{position:relative;right:auto;top:auto;width:62vw;margin:10vh auto 5vh;order:-1}.hero{justify-content:flex-start}}
